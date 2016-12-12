@@ -6,7 +6,7 @@ Redis server, initially targetted to RHEL.
 Requirements
 ------------
 
-TODO
+* redis_install: true
 
 Role Variables
 --------------
