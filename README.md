@@ -1,7 +1,7 @@
 Role Name
 =========
 
-MongoDB server, initially targetted to RHEL.
+Redis server, initially targetted to RHEL.
 
 Requirements
 ------------
@@ -11,12 +11,7 @@ TODO
 Role Variables
 --------------
 
-* mongodb_install: true
-* mongodb_version: 3.4
-* mongodb_storage_directory: /var/lib/mongo
-* mongodb_log_directory: /var/log/mongodb
-* mongodb_process_directory: /var/run/mongodb
-* mongodb_port: 27017
+TODO
 
 Dependencies
 ------------
@@ -29,7 +24,7 @@ Example Playbook
 ```
 - hosts: servers
   roles:
-      - { role: kurron.mongodb }
+      - { role: kurron.redis }
 ```
 
 License

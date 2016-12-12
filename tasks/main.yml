@@ -1,35 +1,37 @@
 ---
-- name: Copy Repository File
-  become: yes
-  template:
-        src: templates/mongo-org.repo.j2
-        dest: /etc/yum.repos.d/mongodb-org-3.4.repo
-  when: mongodb_install and (ansible_pkg_mgr == "yum")
-
-# currently, there is a gpg key mismatch so I'm turning off checking for now
-- name: Install MongoDB
+- name: Install Redis
   become: yes
   yum:
-      name: "mongodb-org"
-      state: present
+      name: redis
       update_cache: yes
-      disable_gpg_check: yes
-  when: mongodb_install and (ansible_pkg_mgr == "yum")
+      state: present
+  when: redis_install and (ansible_pkg_mgr == "yum")
 
-- name: Install MongoDB Configuration
+- name: Adust Redis Configuration
   become: yes
-  template:
-      src: templates/mongod.conf.js
-      dest: /etc/mongod.conf
-      mode: 0444
-      backup: yes
-      force: yes
-  when: mongodb_install
+  lineinfile:
+      dest: /etc/redis.conf
+      regexp: '^bind 127.0.0.1'
+      line: '#bind 127.0.0.1'
+  when: redis_install
 
-- name: Start MongoDB daemon
+- name: Disable Transparent Huge Pages
   become: yes
-  service:
-      name: mongod
-      state: restarted
-      enabled: yes
-  when: mongodb_install
+  debug:
+      msg: "TODO: https://access.redhat.com/solutions/46111"
+
+- name: Enable Redis
+  become: yes
+  command: "systemctl enable redis"
+
+- name: Start Redis
+  become: yes
+  command: "systemctl restart redis"
+
+- name: Dump Redis Status
+  become: yes
+  command: "systemctl status redis"
+
+- name: Test Redis
+  become: no
+  command: "redis-cli ping"

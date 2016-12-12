@@ -1,6 +1,6 @@
 galaxy_info:
   author: Ronald D. Kurr
-  description: MongoDB document database.
+  description: Redis key-value database.
   company: jvmguy.com
 
   license: Apache 2
@@ -34,7 +34,7 @@ galaxy_info:
     - xenial
 
   galaxy_tags:
-      - mongodb
+      - redis
       - nosql
 
 dependencies:
